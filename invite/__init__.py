@@ -27,7 +27,7 @@ class Invite(commands.Cog):
     @commands.command()
     async def invite(self, ctx: commands.Context):
         """Invite the bot to your server."""
-        embed = discord.Embed(color=0x2f3136)
+        embed = discord.Embed(color=await ctx.embed_color())
         url = f'https://discord.com/api/oauth2/authorize?client_id={ctx.bot.user.id}&permissions=8&scope=bot+applications.commands'
         embed.description = f'Thanks for choosing to invite {ctx.bot.user.name} to your server.'
         embed.set_thumbnail(url=ctx.bot.user.avatar_url or ctx.bot.user.default_avatar_url)
