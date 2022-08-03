@@ -32,7 +32,7 @@ class Invite(commands.Cog):
         embed.description = f'Thanks for choosing to invite {ctx.bot.user.name} to your server.'
         embed.set_thumbnail(url=ctx.bot.user.avatar or ctx.bot.user.default_avatar)
         embed.set_author(name=ctx.bot.user.name, icon_url=ctx.bot.user.avatar)
-        embed.set_footer(name=ctx.guild.name or 'Thanks for inviting.', icon_url=ctx.guild.icon or ctx.bot.user.avatar or ctx.bot.user.default_avatar)
+        embed.set_footer(text=ctx.guild.name or 'Thanks for inviting.', icon_url=ctx.guild.icon or ctx.bot.user.avatar or ctx.bot.user.default_avatar)
         embed.add_field(name='Invite the bot.', value=f'[Click here to invite]({url})')
         await ctx.send(embed=embed)
 
