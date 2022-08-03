@@ -1,0 +1,8 @@
+
+{
+    "name": "Invite",
+	"author": ["Akai"],
+	"install_msg": "Thank you for installing Invite.\n Note that this replaces the `invite` command with a new embedded one, so users will be unable to run the command if the bot doesn't have embed permissions.",
+	"description": "Sends an embed to invite the bot.",
+	"short": "Sends an embed to invite the bot."
+  }
