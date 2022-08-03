@@ -1,8 +1,8 @@
 
 import discord
-from discord.ext import commands
+from redbot.core import commands
 
-
+_invite = None
 
 class Invite(commands.Cog):
     """Invite bot to your server."""
@@ -13,10 +13,13 @@ class Invite(commands.Cog):
         self.bot = bot
 
     def cog_unload(self):
-        try:
-            self.bot.remove_command("invite")
-        except:
-            pass
+        global _invite
+        if _invite:
+            try:
+                self.bot.remove_command("invite")
+            except:
+                pass
+            self.bot.add_command(_invite)
 
 
     @commands.bot_has_permissions(embed_links=True)
@@ -31,9 +34,10 @@ class Invite(commands.Cog):
         embed.set_author(name=ctx.bot.user.name, icon_url=ctx.bot.avatar)
         embed.set_footer(name=ctx.guild.name or 'Thanks for inviting.', icon_url=ctx.guild.icon or ctx.bot.user.avatar or ctx.bot.user.default_avatar)
         embed.add_field(name='Invite the bot.', value=f'[Click here to invite]({url})')
+        await ctx.send(embed=embed)
 
 async def setup(bot):
-    _invite = bot.get_command("ping")
+    _invite = bot.get_command("invite")
     if _invite:
         bot.remove_command(_invite.name)
 
