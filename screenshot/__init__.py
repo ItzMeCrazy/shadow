@@ -29,6 +29,8 @@ class Screenshot(commands.Cog):
             delay = 30
         key = self.config.screenshot_key()
         if key is None:
+            await ctx.send(key)
+            await ctx.send(type(key))
             return await ctx.send(f'Ask the bot owner to set an api key for https://api.screenshotmachine.com using `{ctx.clean_prefix}screenshot setkey <key>`')
         ScreenShot = f'https://api.screenshotmachine.com/?key={key}&url={site}&dimension=fullxfull&device={device}&delay={str(delay)}'
         embed = discord.Embed(color=await ctx.embed_color())
