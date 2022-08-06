@@ -16,7 +16,7 @@ class Screenshot(commands.Cog):
         URL_REGEX = re.compile(r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*(),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
         if not re.fullmatch(URL_REGEX, site):
             return await ctx.send('Invalid URL.')
-        if not device.lower() in ['phone, desktop, tablet']:
+        if not device.lower() in ['phone', 'desktop', 'tablet']:
             return await ctx.send('Valid devices are: phone, desktop and tablet.')
         if delay < 0:
             delay = 0
