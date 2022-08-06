@@ -24,9 +24,7 @@ class Screenshot(commands.Cog):
             delay = 0
         if delay >= 30:
             delay = 30
-        key = self.config.screenshot_key()
-        await ctx.send(key)
-        await ctx.send(type(key))
+        key = await self.config.screenshot_key()
         if key is None:
             return await ctx.send(f'Ask the bot owner to set an api key for https://api.screenshotmachine.com using `{ctx.clean_prefix}screenshot setkey <key>`')
         ScreenShot = f'https://api.screenshotmachine.com/?key={key}&url={site}&dimension=fullxfull&device={device}&delay={str(delay)}'
@@ -44,7 +42,7 @@ class Screenshot(commands.Cog):
     @commands.is_owner()
     async def screenshot_setkey(self, ctx, key: str):
         """Sets an API key."""
-        self.config.screenshot_key.set(key)
+        await self.config.screenshot_key.set(key)
         await ctx.send('Successfully set new API key.')
 
 async def setup(bot):
