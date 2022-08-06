@@ -55,7 +55,9 @@ class Info(commands.Cog):
 
         pypi_version, py_version_req = await fetch_latest_red_version_info()
         outdated = pypi_version and pypi_version > red_version_info
-        action_row = [ Button(label='Invite', style=5, url=f'https://discord.com/api/oauth2/authorize?client_id={self.bot.user.id}&permissions=8&scope=bot+applications.commands', emoji='<:invite:981441189460975646>'), Button(label='Support', style=5, url='https://discord.gg/elegant', emoji='<:support:981441709588242432>') ]
+        invite_emoji = discord.utils.get(self.bot.emojis, id=981441189460975646)
+        support_emoji = discord.utils.get(self.bot.emojis, id=981441709588242432)
+        action_row = [ Button(label='Invite', style=5, url=f'https://discord.com/api/oauth2/authorize?client_id={self.bot.user.id}&permissions=8&scope=bot+applications.commands', emoji=invite_emoji), Button(label='Support', style=5, url='https://discord.gg/elegant', emoji=support_emoji) ]
         if embed_links:
             dpy_version = "[{}]({})".format(discord.__version__, dpy_repo)
             python_version = "[{}.{}.{}]({})".format(*sys.version_info[:3], python_url)
