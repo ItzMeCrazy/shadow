@@ -10,7 +10,7 @@ class Screenshot(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases='ss')
+    @commands.command(aliases=['ss'])
     async def screenshot(self, ctx: commands.Context, site: str, device: str = 'desktop', delay: int = 0):
         """Get screenshot from a website."""
         URL_REGEX = re.compile(r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*(),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
