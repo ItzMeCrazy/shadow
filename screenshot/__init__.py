@@ -22,7 +22,7 @@ class Screenshot(commands.Cog):
             delay = 0
         if delay >= 30:
             delay = 30
-        ScreenShot = f'https://api.screenshotmachine.com/?key=b3c1f6&url={site}&device={device}&delay={delay}'
+        ScreenShot = f'https://api.screenshotmachine.com/?key=b3c1f6&url={site}&dimension=1024xfull&device={device}&delay={str(delay)}'
         embed = discord.Embed(color=await ctx.embed_color())
         embed.title = site
         embed.url = site
