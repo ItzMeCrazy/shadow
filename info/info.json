@@ -1,0 +1,9 @@
+
+{
+    "name": "Info",
+	"author": ["Akai"],
+	"install_msg": "Thank you for installing Info.\n Note that this replaces the `info` command with a new one, so users will be unable to run the command if the bot doesn't have embed permissions.",
+	"description": "Sends a bot info embed.",
+	"short": "Sends a bot info embed.",
+	"requirements": "discord-components"
+  }
