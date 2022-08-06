@@ -10,7 +10,7 @@ class Screenshot(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=69696969696)
-        self.config.register_global(screenshot_key=True)
+        self.config.register_global(screenshot_key=None)
 
     @commands.group(invoke_without_command=True, aliases=['ss'])
     async def screenshot(self, ctx: commands.Context, site: str, device: str = 'desktop', delay: int = 0):
