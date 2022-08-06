@@ -1,6 +1,6 @@
 
 import discord
-from redbot.core import commands
+from redbot.core import commands, Config
 import re
 from typing import Optional
 
@@ -9,8 +9,13 @@ class Screenshot(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.config = Config.get_conf(self, identifier=1234567890)
+        values = {
+            "screenshot_key": None
+        }
+        self.config.register_global(**values)
 
-    @commands.command(aliases=['ss'])
+    @commands.group(invoke_without_command=True, aliases=['ss'])
     async def screenshot(self, ctx: commands.Context, site: str, device: str = 'desktop', delay: int = 0):
         """Get screenshot from a website."""
         URL_REGEX = re.compile(r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*(),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
@@ -22,7 +27,10 @@ class Screenshot(commands.Cog):
             delay = 0
         if delay >= 30:
             delay = 30
-        ScreenShot = f'https://api.screenshotmachine.com/?key={key}&url={site}&dimension=1024xfull&device={device}&delay={str(delay)}'
+        key = self.config.screenshot_key()
+        if key is None:
+            return await ctx.send(f'Ask the bot owner to set an api key for https://api.screenshotmachine.com using `{ctx.clean_prefix}screenshot setkey <key>`')
+        ScreenShot = f'https://api.screenshotmachine.com/?key={key}&url={site}&dimension=fullxfull&device={device}&delay={str(delay)}'
         embed = discord.Embed(color=await ctx.embed_color())
         embed.title = site
         embed.url = site
@@ -32,7 +40,13 @@ class Screenshot(commands.Cog):
             await ctx.send('Screenshot sent directly.')
         except:
             await ctx.send('Failed to send screenshot, make sure to have dms open.')
-        
+
+    @screenshot.command(name='setkey')
+    @commands.is_owner()
+    async def screenshot_setkey(self, ctx, key: str):
+        """Sets an API key."""
+        self.config.screenshot_key.set(key)
+        await ctx.send('Successfully set new API key.')
 
 async def setup(bot):
     bot.add_cog(Screenshot(bot))
