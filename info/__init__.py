@@ -9,8 +9,8 @@ from redbot.core import (
 )
 from discord_components import DiscordComponents, Button
 
-from .utils._internal_utils import fetch_latest_red_version_info
-from .utils.chat_formatting import box
+from redbot.core.utils._internal_utils import fetch_latest_red_version_info
+from redbot.core.utils.chat_formatting import box
 
 
 _info = None
