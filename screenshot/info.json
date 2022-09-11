@@ -1,8 +1,0 @@
-
-{
-    "name": "Screenshot",
-	"author": ["Akai"],
-	"install_msg": "Thank you for installing `Screenshot`.",
-	"description": "Sends screenshot from given website.",
-	"short": "Sends screenshot from given website."
-  }
