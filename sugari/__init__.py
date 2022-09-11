@@ -18,7 +18,7 @@ class Sugari(commands.Cog):
 
     @commands.command(aliases=['s', 'sup'])
     @commands.has_permissions(manage_messages=True)
-    async def info(self, ctx: commands.Context):
+    async def support(self, ctx: commands.Context):
         """Send sugari bot support embed."""
         await ctx.message.delete()
         embed = discord.Embed(color=0x2f3136)
