@@ -13,11 +13,11 @@ class Device(commands.Cog):
     @commands.command()
     async def device(self, ctx: commands.Context, user: discord.Member) -> None:
         """Displays the device user is using."""
-        if user.web_status != 'offline':
+        if user.web_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
             device = "Web 💻"
-        elif user.desktop_status != 'offline':
+        elif user.desktop_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
             device = "Desktop 🖥️"
-        elif user.mobile_status != 'offline':
+        elif user.mobile_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
             device = "Mobile 📱"
         else:
             await ctx.send(f"{user.name} is offline on all devices.")
