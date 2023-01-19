@@ -13,16 +13,22 @@ class Device(commands.Cog):
     @commands.command()
     async def device(self, ctx: commands.Context, user: discord.Member) -> None:
         """Displays the device user is using."""
+        user = user if user else ctx.author
+        devices = []
         if user.web_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
-            device = "Web 💻"
+            devices.append("A Web 💻 device")
         elif user.desktop_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
-            device = "Desktop 🖥️"
+            devices.append("A Desktop 🖥️ device")
         elif user.mobile_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
-            device = "Mobile 📱"
+            devices.append("A Mobile 📱 device")
         else:
-            await ctx.send(f"{user.name} is offline on all devices.")
+            await ctx.send(embed=discord.Embed(description=f"{user.name} is offline on all devices.", color=0xFF0000))
             return
-        embed = discord.Embed(title=f"{user.name} is using a {device} device.", color=0x00ff00)
+        deviceString = ""
+        if len(devices) > 1:
+            devices[-1] = "and " + devices[-1]
+        deviceString = ', '.join(devices)
+        embed = discord.Embed(title=f"{user.name} is using {deviceString}.", color=0x00ff00)
         await ctx.send(embed=embed)
 
 async def setup(bot):
