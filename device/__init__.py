@@ -15,6 +15,13 @@ class Device(commands.Cog):
     async def device(self, ctx: commands.Context, user: Optional[discord.Member] = None) -> None:
         """Displays the device user is using."""
         user = user if user else ctx.author
+        if user.bot:
+            await ctx.send(
+                embed=discord.Embed(
+                    title="Ha! Bots don't have a physical device for you to check. But don't worry, all bots are safe and sound in the cloud, living their best virtual lives.",
+                    color=0xFF0000
+                )
+            )          
         devices = []
         if user.web_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
             devices.append("A Web 💻 device")
