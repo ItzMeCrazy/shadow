@@ -18,11 +18,11 @@ class Device(commands.Cog):
         devices = []
         if user.web_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
             devices.append("A Web 💻 device")
-        elif user.desktop_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
+        if user.desktop_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
             devices.append("A Desktop 🖥️ device")
-        elif user.mobile_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
+        if user.mobile_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
             devices.append("A Mobile 📱 device")
-        else:
+        if len(devices) == 0:
             await ctx.send(embed=discord.Embed(title=f"{user.name} is offline on all devices.", color=0xFF0000))
             return
         deviceString = ""
