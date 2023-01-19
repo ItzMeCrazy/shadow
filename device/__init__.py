@@ -27,6 +27,10 @@ class Device(commands.Cog):
             return
         deviceString = ""
         if len(devices) > 1:
+            deviceString =  ', '.join(devices[:-1]) + ' and ' + devices[-1]
+        else:
+            deviceString = devices[0]
+        if len(devices) > 1:
             devices[-1] = "and " + devices[-1]
         deviceString = ', '.join(devices)
         embed = discord.Embed(title=f"{user.name} is using {deviceString}.", color=0x00ff00)
