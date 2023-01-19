@@ -1,4 +1,5 @@
 
+from typing import Optional
 import discord
 from redbot.core import commands
 
@@ -11,7 +12,7 @@ class Device(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def device(self, ctx: commands.Context, user: discord.Member) -> None:
+    async def device(self, ctx: commands.Context, user: Optional[discord.Member] = None) -> None:
         """Displays the device user is using."""
         user = user if user else ctx.author
         devices = []
