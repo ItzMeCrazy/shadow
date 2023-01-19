@@ -21,7 +21,8 @@ class Device(commands.Cog):
                     title="Ha! Bots don't have a physical device for you to check. But don't worry, all bots are safe and sound in the cloud, living their best virtual lives.",
                     color=0xFF0000
                 )
-            )          
+            )
+            return     
         devices = []
         if user.web_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
             devices.append("A Web 💻 device")
