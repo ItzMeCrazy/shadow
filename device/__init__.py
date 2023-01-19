@@ -23,7 +23,7 @@ class Device(commands.Cog):
         elif user.mobile_status in [discord.Status.online, discord.Status.idle, discord.Status.dnd]:
             devices.append("A Mobile 📱 device")
         else:
-            await ctx.send(embed=discord.Embed(description=f"{user.name} is offline on all devices.", color=0xFF0000))
+            await ctx.send(embed=discord.Embed(title=f"{user.name} is offline on all devices.", color=0xFF0000))
             return
         deviceString = ""
         if len(devices) > 1:
