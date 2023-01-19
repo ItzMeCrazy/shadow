@@ -26,8 +26,6 @@ class Device(commands.Cog):
             await ctx.send(embed=discord.Embed(title=f"{user.name} is offline on all devices.", color=0xFF0000))
             return
         deviceString = devices[0] if len(devices) <= 1 else ', '.join(devices[:-1]) + ' and ' + devices[-1]
-        if len(devices) > 1:
-            devices[-1] = "and " + devices[-1]
         deviceString = ', '.join(devices)
         embed = discord.Embed(title=f"{user.name} is using {deviceString}.", color=0x00ff00)
         await ctx.send(embed=embed)
