@@ -1,0 +1,8 @@
+
+{
+    "name": "Color",
+	"author": ["Kaogurai"],
+	"install_msg": "Thank you for installing Kaotools cog.",
+	"description": "Finds color as per given hex.",
+	"short": "Finds color as per given hex."
+  }
