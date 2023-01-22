@@ -187,7 +187,7 @@ class Alias(commands.Cog):
             return
         await menu(ctx, alias_list)
 
-    @commands.group()
+    @commands.group(aliases=['ca'])
     async def customalias(self, ctx: commands.Context):
         """Manage command aliases."""
         pass
