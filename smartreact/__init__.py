@@ -122,18 +122,19 @@ class SmartReact(commands.Cog):
         if reacts is None:
             return
         for emoji in reacts:
-            if reacts[emoji] in message.contents:
-                emoji = self.fix_custom_emoji(emoji)
-                if not emoji:
-                    return
-                try:
-                    await message.add_reaction(emoji)
-                except (discord.errors.Forbidden, discord.errors.InvalidArgument, discord.errors.NotFound):
-                    pass
-                except discord.errors.HTTPException:
-                    if emoji in reacts:
-                        del reacts[emoji]
-                        await self.conf.guild(message.guild).reactions.set(reacts)
+            for memberID in reacts:
+                if memberID in message.content:
+                    emoji = self.fix_custom_emoji(emoji)
+                    if not emoji:
+                        return
+                    try:
+                        await message.add_reaction(emoji)
+                    except (discord.errors.Forbidden, discord.errors.InvalidArgument, discord.errors.NotFound):
+                        pass
+                    except discord.errors.HTTPException:
+                        if emoji in reacts:
+                            del reacts[emoji]
+                            await self.conf.guild(message.guild).reactions.set(reacts)
 
 
 def setup(bot) -> None:
