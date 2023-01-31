@@ -27,7 +27,7 @@ class SmartReact(commands.Cog):
     @checks.mod_or_permissions(administrator=True)
     @commands.bot_has_permissions(add_reactions=True, read_message_history=True)
     @commands.guild_only()
-    @commands.command()
+    @commands.command(aliases=['ar'])
     async def addreact(self, ctx, member: discord.Member, emoji):
         """
         Add an auto reaction to a member.
@@ -39,7 +39,7 @@ class SmartReact(commands.Cog):
     @checks.mod_or_permissions(administrator=True)
     @commands.bot_has_permissions(add_reactions=True, read_message_history=True)
     @commands.guild_only()
-    @commands.command()
+    @commands.command(aliases='rar')
     async def removereact(self, ctx, member: discord.Member, emoji):
         """
         Delete an auto reaction to a member.
