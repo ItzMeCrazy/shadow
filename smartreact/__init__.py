@@ -123,7 +123,7 @@ class SmartReact(commands.Cog):
             return
         for emoji in reacts:
             for memberID in reacts[emoji]:
-                if memberID in message.content:
+                if str(memberID) in message.content:
                     emoji = self.fix_custom_emoji(emoji)
                     if not emoji:
                         return
