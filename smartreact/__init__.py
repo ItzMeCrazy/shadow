@@ -134,3 +134,7 @@ class SmartReact(commands.Cog):
                     if emoji in reacts:
                         del reacts[emoji]
                         await self.conf.guild(message.guild).reactions.set(reacts)
+
+
+def setup(bot) -> None:
+    bot.add_cog(SmartReact(bot))
