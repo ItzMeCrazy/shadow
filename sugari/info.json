@@ -1,9 +1,0 @@
-
-{
-    "name": "Sugari",
-	"author": ["Akai"],
-	"install_msg": "Support embed for sugari bot.",
-	"description": "Sends a bot support embed.",
-	"short": "Sends a bot support embed.",
-	"requirements": "discord-components"
-  }
