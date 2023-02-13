@@ -19,22 +19,23 @@ class Reach(commands.Cog):
         roles: commands.Greedy[discord.Role],
     ):
         """Shows the reach of roles in a channel"""
-        members = 0
-        total_members = 0
+        members = set()
+        total_members = set()
         for role in roles:
-            total_members += len(role.members)
             for member in role.members:
+                total_members.add(member)
                 if channel.permissions_for(member).read_messages:
                     members += 1
+                    members.add(member)
 
-        percent = 100 * members / total_members
+        percent = 100 * len(members) / len(total_members)
         description = (
             f"Channel: {channel.mention} `{channel.id}`\n\n"
             + "\n".join(
-                f"<:Arrow:1074035208640286810> {role.mention} `{role.id}` members: {len(role.members)} reach: {100 * len(role.members) / total_members:.2f}%"
+                f"<:Arrow:1074035208640286810> {role.mention} `{role.id}` members: {len(role.members)} reach: {100 * len(role.members) / len(total_members):.2f}%"
                 for role in roles
             )
-            + f"\nTotal reach: {members} out of {total_members} targeted members\nwhich represents {percent:.2f}%"
+            + f"\nTotal reach: {len(members)} out of {len(total_members)} targeted members\nwhich represents {percent:.2f}%"
         )
 
         embed = discord.Embed(
