@@ -32,7 +32,6 @@ class Reach(commands.Cog):
             + "\n".join(
                 f"<a:arrow:1050149168586440765> {role.mention} `{role.id}` members: {len(role.members)} reach: {100 * len(role.members) / total_members:.2f}%"
                 for role in roles
-                if channel.permissions_for(dummy_member).read_messages
             )
             + f"\nTotal reach: {members} out of {total_members} targeted members\nwhich represents {percent:.2f}%"
         )
