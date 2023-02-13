@@ -3,7 +3,7 @@ import discord
 from redbot.core import commands
 
 
-class Device(commands.Cog):
+class Reach(commands.Cog):
     """Shows the reach of roles in a channel"""
 
     __version__ = "1.0.0"
