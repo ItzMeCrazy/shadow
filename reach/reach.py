@@ -19,6 +19,9 @@ class Reach(commands.Cog):
         roles: commands.Greedy[discord.Role],
     ):
         """Shows the reach of roles in a channel"""
+        if len(roles) == 0:
+            await ctx.send("Please enter atleast one role to check reach of.")
+            return
         members = set()
         total_members = set()
         for role in roles:
