@@ -1,3 +1,5 @@
+import datetime
+import random
 from typing import Optional
 import aiohttp
 import discord
@@ -32,20 +34,25 @@ class Quotes(commands.Cog):
                     await ctx.send(embed=embed)
 
     @commands.command()
-    async def quote(self, ctx: commands.Context) -> None:
-        """Shows a random quote"""
+    async def quote(self, ctx: commands.Context):
+        """Fetches a random quote."""
         async with aiohttp.ClientSession() as session:
-            async with session.get(
-                "https://quotes.rest/quote/random?language=en&limit=1",
-                headers={"accept": "application/json"},
-            ) as resp:
-                if resp.status == 200:
-                    json_response = await resp.json()
-                    quote = json_response["contents"]["quotes"][0]["quote"]
-                    embed = discord.Embed(title="Random Quote!", color=0x2F3136)
-                    embed.description = quote
-                    embed.set_author(
-                        name=ctx.author.name, icon_url=ctx.author.avatar_url
-                    )
-                    embed.set_footer(text=ctx.guild.name, icon_url=ctx.guild.icon_url)
-                    await ctx.send(embed=embed)
+            async with session.get("https://api.quotable.io/random") as quote_json:
+                q = await quote_json.json()  # Make sure to import json
+
+        try:
+            quote = q["content"]
+            author = q["author"]
+            embed = discord.Embed(
+                title="Quote by {}".format(author.capitalize()),
+                description=quote,
+                color=random.randint(000000, 999999),
+            )
+            embed.set_footer(
+                text=f"Requested by {ctx.author}",
+                icon_url=ctx.author.avatar_url,
+            )
+            embed.timestamp = datetime.datetime.now()
+            await ctx.send(embed=embed)
+        except:
+            await ctx.send("An error occurred.")
