@@ -25,7 +25,6 @@ class Reach(commands.Cog):
             for member in role.members:
                 total_members.add(member)
                 if channel.permissions_for(member).read_messages:
-                    members += 1
                     members.add(member)
 
         percent = 100 * len(members) / len(total_members)
