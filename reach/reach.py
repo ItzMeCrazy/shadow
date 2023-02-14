@@ -28,20 +28,20 @@ class Reach(commands.Cog):
         for role in roles:
             if isinstance(role, str):
                 if "everyone" in role.lower():
-                    for member in ctx.guild.members:
+                    for member in ctx.guild.default_role.members:
                         total_members.add(member)
                         if channel.permissions_for(member).read_messages:
                             members.add(member)
-                    description += f"\n<:Arrow:1074035208640286810> @everyone members: {len(ctx.guild.members)} reach: {100 * len(members) / len(ctx.guild.members):.2f}%"
+                    description += f"\n<:Arrow:1074035208640286810> @everyone members: {len(ctx.guild.default_role.members)} reach: {100 * len(members) / len(ctx.guild.default_role.members):.2f}%"
                 else:
                     await ctx.send("Invalid role passed.")
                     return
-        else:
-            for member in role.members:
-                total_members.add(member)
-                if channel.permissions_for(member).read_messages:
-                    members.add(member)
-            description += f"\n<:Arrow:1074035208640286810> {role.mention} `{role.id}` members: {len(role.members)} reach: {100 * len(role.members) / len(total_members):.2f}%"
+            else:
+                for member in role.members:
+                    total_members.add(member)
+                    if channel.permissions_for(member).read_messages:
+                        members.add(member)
+                description += f"\n<:Arrow:1074035208640286810> {role.mention} `{role.id}` members: {len(role.members)} reach: {100 * len(role.members) / len(total_members):.2f}%"
 
         percent = 100 * len(members) / len(total_members)
         description += f"\nTotal reach: {len(members)} out of {len(total_members)} targeted members\nwhich represents {percent:.2f}%"
