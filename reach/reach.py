@@ -33,6 +33,14 @@ class Reach(commands.Cog):
                         if channel.permissions_for(member).read_messages:
                             members.add(member)
                     description += f"\n<:Arrow:1074035208640286810> @everyone members: {len(ctx.guild.default_role.members)} reach: {100 * len(members) / len(ctx.guild.default_role.members):.2f}%"
+                elif "@here" in role.lower():
+                    for member in ctx.guild.members:
+                        if member.status != discord.Status.offline:
+                            total_members.add(member)
+                            if channel.permissions_for(member).read_messages:
+                                members.add(member)
+                    description += f"\n<:Arrow:1074035208640286810> @here members: {len(total_members)} reach: {100 * len(members) / len(total_members):.2f}%"
+
                 else:
                     await ctx.send("Invalid role passed.")
                     return
