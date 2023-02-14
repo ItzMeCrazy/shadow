@@ -31,4 +31,4 @@ class Purge(commands.Cog):
 
         else:
             deleted = await ctx.channel.purge(limit=limit)
-        await ctx.send(f"Deleted {len(deleted)} message(s)")
+        await ctx.send(f"Deleted {len(deleted)} message(s)", delete_after=5)
