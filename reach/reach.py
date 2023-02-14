@@ -72,5 +72,5 @@ class Reach(commands.Cog):
     async def setarrow(self, ctx: commands.Context, emoji: discord.Emoji):
         """Set a new arrow emoji for the reach command."""
         emote = f"<{'a' if emoji.animated else ''}:{emoji.name}:{emoji.id}>"
-        await self.config.default_global.set(emote)
+        await self.config.arrow.set(emote)
         await ctx.send("Done, updated the emoji.")
