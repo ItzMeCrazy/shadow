@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Union
 import discord
 from redbot.core import commands
 
@@ -16,7 +16,7 @@ class Reach(commands.Cog):
         self,
         ctx: commands.Context,
         channel: discord.TextChannel,
-        roles: commands.Greedy[discord.Role],
+        *roles: Union[discord.Role, str],
     ):
         """Shows the reach of roles in a channel"""
         if len(roles) == 0:
@@ -24,21 +24,27 @@ class Reach(commands.Cog):
             return
         members = set()
         total_members = set()
+        description = f"Channel: {channel.mention} `{channel.id}`\n\n"
         for role in roles:
+            if isinstance(role, str):
+                if "everyone" in role.lower():
+                    for member in ctx.guild.members:
+                        total_members.add(member)
+                        if channel.permissions_for(member).read_messages:
+                            members.add(member)
+                    description += f"\n<:Arrow:1074035208640286810> @everyone members: {len(ctx.guild.members)} reach: {100 * len(members) / len(ctx.guild.members):.2f}%"
+                else:
+                    await ctx.send("Invalid role passed.")
+                    return
+        else:
             for member in role.members:
                 total_members.add(member)
                 if channel.permissions_for(member).read_messages:
                     members.add(member)
+            description += f"\n<:Arrow:1074035208640286810> {role.mention} `{role.id}` members: {len(role.members)} reach: {100 * len(role.members) / len(total_members):.2f}%"
 
         percent = 100 * len(members) / len(total_members)
-        description = (
-            f"Channel: {channel.mention} `{channel.id}`\n\n"
-            + "\n".join(
-                f"<:Arrow:1074035208640286810> {role.mention} `{role.id}` members: {len(role.members)} reach: {100 * len(role.members) / len(total_members):.2f}%"
-                for role in roles
-            )
-            + f"\nTotal reach: {len(members)} out of {len(total_members)} targeted members\nwhich represents {percent:.2f}%"
-        )
+        description += f"\nTotal reach: {len(members)} out of {len(total_members)} targeted members\nwhich represents {percent:.2f}%"
 
         embed = discord.Embed(
             title="**Roles Reach**", description=description, color=3092790
