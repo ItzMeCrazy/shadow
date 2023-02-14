@@ -1,6 +1,6 @@
 from typing import Optional, Union
 import discord
-from redbot.core import commands
+from redbot.core import commands, Config
 
 
 class Reach(commands.Cog):
@@ -9,6 +9,7 @@ class Reach(commands.Cog):
     __version__ = "1.0.0"
 
     def __init__(self, bot):
+        self.config = Config.get_conf(self, identifier=696969696969)
         self.bot = bot
         default_global = {
             "arrow": "➡️",
