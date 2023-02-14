@@ -10,8 +10,12 @@ class Reach(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        default_global = {
+            "arrow": "➡️",
+        }
+        self.config.register_global(**default_global)
 
-    @commands.command()
+    @commands.group(invoke_without_command=True)
     async def reach(
         self,
         ctx: commands.Context,
@@ -22,6 +26,7 @@ class Reach(commands.Cog):
         if len(roles) == 0:
             await ctx.send("Please enter atleast one role to check reach of.")
             return
+        arrow = await self.config.arrow()
         members = set()
         total_members = set()
         description = f"Channel: {channel.mention} `{channel.id}`\n\n"
@@ -32,14 +37,14 @@ class Reach(commands.Cog):
                         total_members.add(member)
                         if channel.permissions_for(member).read_messages:
                             members.add(member)
-                    description += f"\n<:Arrow:1074035208640286810> @everyone members: {len(ctx.guild.default_role.members)} reach: {100 * len(members) / len(ctx.guild.default_role.members):.2f}%"
+                    description += f"\n{arrow} @everyone members: {len(ctx.guild.default_role.members)} reach: {100 * len(members) / len(ctx.guild.default_role.members):.2f}%"
                 elif "here" in role.lower():
                     for member in ctx.guild.members:
                         if member.status != discord.Status.offline:
                             total_members.add(member)
                             if channel.permissions_for(member).read_messages:
                                 members.add(member)
-                    description += f"\n<:Arrow:1074035208640286810> @here members: {len(total_members)} reach: {100 * len(members) / len(total_members):.2f}%"
+                    description += f"\n{arrow} @here members: {len(total_members)} reach: {100 * len(members) / len(total_members):.2f}%"
 
                 else:
                     await ctx.send("Invalid role passed.")
@@ -49,7 +54,7 @@ class Reach(commands.Cog):
                     total_members.add(member)
                     if channel.permissions_for(member).read_messages:
                         members.add(member)
-                description += f"\n<:Arrow:1074035208640286810> {role.mention} `{role.id}` members: {len(role.members)} reach: {100 * len(role.members) / len(total_members):.2f}%"
+                description += f"\n{arrow} {role.mention} `{role.id}` members: {len(role.members)} reach: {100 * len(role.members) / len(total_members):.2f}%"
 
         percent = 100 * len(members) / len(total_members)
         description += f"\nTotal reach: {len(members)} out of {len(total_members)} targeted members\nwhich represents {percent:.2f}%"
@@ -58,4 +63,12 @@ class Reach(commands.Cog):
             title="**Roles Reach**", description=description, color=3092790
         )
         embed.set_footer(text="Run ';invite' to invite me!")
+
         await ctx.send(embed=embed)
+
+    @reach.command()
+    @commands.is_owner()
+    async def setarrow(self, ctx: commands.Context, emoji: discord.Emoji):
+        """Set a new arrow emoji for the reach command."""
+        await self.config.default_global.set(emoji)
+        await ctx.send("Done, updated the emoji.")
