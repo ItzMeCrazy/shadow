@@ -1,0 +1,9 @@
+{
+	"name": "Purge",
+	"author": [
+		"Akai"
+	],
+	"install_msg": "Thank you for installing Purge cog.",
+	"description": "Purge messages in a text channel.",
+	"short": "Purge messages in a text channel."
+}
