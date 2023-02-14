@@ -24,10 +24,11 @@ class Purge(commands.Cog):
             return
         if member:
 
-            def is_member(mem) -> bool:
-                return mem.id == member.id
+            def is_member(m):
+                return m.author == member
 
-            await ctx.channel.purge(limit=limit, check=is_member)
+            deleted = await ctx.channel.purge(limit=limit, check=is_member)
 
         else:
-            await ctx.channel.purge(limit=limit)
+            deleted = await ctx.channel.purge(limit=limit)
+        await ctx.send(f"Deleted {len(deleted)} message(s)")
