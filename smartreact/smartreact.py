@@ -28,7 +28,7 @@ class SmartReact(commands.Cog):
     @commands.bot_has_permissions(add_reactions=True, read_message_history=True)
     @commands.guild_only()
     @commands.command(aliases=["ar"])
-    async def addreact(self, ctx, member: discord.Member, emoji):
+    async def addreact(self, ctx, member: discord.User, emoji):
         """
         Add an auto reaction to a member.
         The `emoji` can be either the emoji itself, or in the case of a custom emoji, the ID.
@@ -40,7 +40,7 @@ class SmartReact(commands.Cog):
     @commands.bot_has_permissions(add_reactions=True, read_message_history=True)
     @commands.guild_only()
     @commands.command(aliases=["rar"])
-    async def removereact(self, ctx, member: discord.Member, emoji):
+    async def removereact(self, ctx, member: discord.User, emoji):
         """
         Delete an auto reaction to a member.
         The `emoji` can be either the emoji itself, or in the case of a custom emoji, the ID.
